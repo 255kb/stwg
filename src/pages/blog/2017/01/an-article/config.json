@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../../../../schemas/page-config-schema.json",
+
+  "languages": {
+    "en": {
+      "pageTitle": "An article",
+      "pageDesc": "An article description",
+      "content": "article content"
+    },
+    "fr": {
+      "pageUrl": "un-article",
+      "pageTitle": "Un article",
+      "pageDesc": "Description d'un article",
+      "content": "Contenu de l'article"
+    }
+  }
+}

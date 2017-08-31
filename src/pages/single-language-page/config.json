@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../schemas/page-config-schema.json",
+
+  "languages": {
+    "fr": {
+      "pageUrl": "test",
+      "pageTitle": "Page info",
+      "pageDesc": "Description de la page info",
+      "content": "Info"
+    }
+  }
+}

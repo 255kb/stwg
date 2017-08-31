@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../schemas/page-config-schema.json",
+
+  "languages": {
+    "en": {
+      "pageUrl": "about",
+      "pageTitle": "About page",
+      "pageDesc": "About page description",
+      "content": "About"
+    },
+    "fr": {
+      "pageUrl": "a-propos",
+      "pageTitle": "Page a propos",
+      "pageDesc": "Description de la page a propos",
+      "content": "A propos"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../schemas/main-config-schema.json",
+
+  "domain": "http://localhost:8000",
+  "defaultLanguage": "en",
+  "showCanonicalUrl": true,
+  "showAlternatesUrls": true,
+  "addGoogleAnalytics": true,
+  "googleAnalyticsId": "your_ga_id"
+}

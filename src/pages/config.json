@@ -1,0 +1,16 @@
+{
+  "$schema": "../../schemas/page-config-schema.json",
+
+  "languages": {
+    "en": {
+      "pageTitle": "Super Tiny Website Generator demo",
+      "pageDesc": "This is a demo of the Super Tiny Website Generator.",
+      "title": "Super Tiny Website Generator demo"
+    },
+    "fr": {
+      "pageTitle": "Demo du Super Tiny Website Generator",
+      "pageDesc": "Ceci est une demo du Super Tiny Website Generator.",
+      "title": "Demo du Super Tiny Website Generator"
+    }
+  }
+}
