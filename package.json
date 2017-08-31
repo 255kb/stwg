@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Super Tiny Website Generator: a super tiny website generator made with Gulp",
   "scripts": {
-    "build": "gulp watch"
+    "watch": "gulp watch",
+    "build": "gulp compile && gulp webserver"
   },
   "author": {
     "name": "Guillaume Monnet",
