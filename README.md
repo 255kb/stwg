@@ -4,7 +4,7 @@ Super Tiny Website Generator is an old school super tiny website generator made 
 
 It can be used to generate small websites with simple pages and simple blogging structure.
 
-It is NOT a fancy-hype-single-page-application-made-with-React-and-Redux. You can still add fancy JS to your pages if you want.
+It is NOT a fancy-hype-single-page-application-made-with-Webpack-React-and-Redux. But you can still add fancy JS to your pages if you want.
 
 It has been designed with productivity in mind, to publish really quickly small websites. So, I throwed away all non necessary features: themes, plugins, etc.
 But it is small, fast (of course), crawlable and easy to host on free static hosting services like Firebase (for more free static hosting providers you can have a look [here](https://github.com/255kb/stack-on-a-budget/blob/master/pages/static-app-hosting.md)).
@@ -18,13 +18,14 @@ But it is small, fast (of course), crawlable and easy to host on free static hos
 - [Configuration](#configuration)
     - [Repository tree view](#repository-tree-view)
     - [Website folder tree view (*src*)](#website-folder-tree-view-src)
+    - [Config files](#config-files)
     - [Main config file](#main-config-file)
     - [Pages](#pages)
+        - [Pages config file](#pages-config-file)
         - [Languages](#languages)
         - [Folder and file naming conventions](#folder-and-file-naming-conventions)
-        - [Config files](#config-files)
-        - [Templates](#templates)
-        - [Partials](#partials)
+    - [Templates](#templates)
+    - [Partials](#partials)
     - [Assets](#assets)
     - [Styles](#styles)
 
@@ -32,7 +33,8 @@ But it is small, fast (of course), crawlable and easy to host on free static hos
 
 ## Features
 
-- 100% static website generation, no need for an expensive server/backend, SEO super friendly
+- 100% static website generation, no need for an expensive server/backend
+- SEO super friendly, no server side rendering required
 - multi languages support
 - folder recursivity support (for blogging)
 - basic templating system (using Handlebars)
@@ -61,7 +63,8 @@ This website generator is following some folders/files naming conventions which 
 
 <pre>
 .
-├── <b>lib</b>                # the generator itself written in JS
+├── <b>lib</b>                # the generator itself written in JS (no change required)
+├── <b>schemas</b>            # JSON configs schemas (no change required)
 ├── <b>src</b>                # your website files and configs (<a href="#website-folder-src">see below</a>)
 └── <b>www</b>                # build output folder (the website to publish)
 </pre>
@@ -105,62 +108,91 @@ This website generator is following some folders/files naming conventions which 
 **bold** folder and file names are reserved
 **italic** folder and file names are user's own
 
+### Config files
+
+Two JSON schemas are here to help you validate your config files.
+- `main-config-schema.json` validating main config files
+- `page-config-schema.json` validating pages config files
+
 ### Main config file
 
-main config :
-//domain without the trailing slash
-
-  "domain": "http://localhost:8000",
-  "defaultLanguage": "en",
-  "showCanonicalUrl": true,
-  "showAlternatesUrls": true,
-  "addGoogleAnalytics": true,
-  "googleAnalyticsId": "your_ga_id"
+<pre>
+{
+  "domain": "http://localhost:8000",    // domain without trailing slash
+  "defaultLanguage": "en",              // default language
+  "showCanonicalUrl": true,             // add link canonical to page
+  "showAlternatesUrls": true,           // show link alternate for i18n
+  "addGoogleAnalytics": true,           // Add GA script
+  "googleAnalyticsId": "your_ga_id"     // Your GA id
+}
+</pre>
 
 ### Pages
 
-src folder : where you put everything
+#### Pages config file
+
+<pre>
+{
+  "languages": {
+    "en": {
+      // reserved keys
+      "pageUrl": "a-page",
+      "pageTitle": "English page title",
+      "pageDesc": "English page description",
+
+      // Any other key to be used in templates
+      "customKey": "page content"
+    },
+    "fr": {
+      // reserved keys
+      "pageUrl": "une-page",
+      "pageTitle": "Titre page français",
+      "pageDesc": "Description page française",
+
+      // Any other key to be used in templates
+      "customKey": "contenu de la page"
+    }
+  }
+}
+</pre>
+
+Routes will be created from folders paths. To override pages URLs you can use  `pageUrl` that will override the last folder name.
 
 #### Languages
 
-pages can have different languages, one with fr, the other with fr and en
-
-if multi language default will be at root of folder
-if single language must / will be default
-but root page of the default language is required
+Pages can have multiple languages as shown above.
+- Default language will be served at root of the website without prefix: **/about**, **/info**...
+- Other languages will be served in subfolders used as prefixes: **/fr/a-propos**, **/fr/info**...
+- If there is only a single language it will be used as the default one.
 
 #### Folder and file naming conventions
 
-pages :
-- root = index
-- folder = page name
-each page / index has 3 files : template hbs, config with mainly languages array, and texts with languages corresponding
+- Each page has 2 files: `index.hbs` and a `config.json` file with some reserved keys and any other text you need.
+- `config.json` and `index.hbs` files at the root of the `pages` folder will be used to generate the main `index.html` file (website entry).
+- Each `pages` folder subfolder will be a page using subfolder name (or `pageUrl` param) as path.
 
-#### Config files
 
-Two JSON schemas are here to help you validate your config files
+### Templates
 
-#### Templates
+You can basically do whatever you want in the Handlebars templates.
+There is currently one helper you can use: `text` which will load a translation key from the `config.json` file:
 
-hbs : text helper
-{{text ''}}
+```html
+{{text 'myKey'}}
+```
 
-#### Partials
+### Partials
 
-partials : probably nothing to change or just add your partials
+The `partials` folder currently has 2 partials, one for the header and one for the footer. You don't have to add anything there but feel free to create your own partials to be used in templates like this:
+
+```html
+{{> myPartial}}
+```
 
 ### Assets
 
-root will be put in www root, other folders arborescence will be kept
+Whatever you put in the `src/assets` folder will be copied in the `www` folder. Therefore, files at the root of the `src/assets` folder will be at the root of the `www` folder and all other folders and files will be copied as is.
 
 ### Styles
 
-scss
- build.scss is entry point in style folder, do whatever you want, add files, folders, and simply import files in build.scss like this:
-
- ```scss
-// Imports
-@import "variables.scss";
-@import "normalize.scss";
-@import "style.scss";
- ```
+Sass and Scss are currently supported. The `build.scss` is the entry point in the `src/style` folder. Starting from this file you can add wahtever content or file you want.
