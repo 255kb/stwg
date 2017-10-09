@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-clean-css": "^3.4.1",
+    "gulp-clean-css": "^3.9.1",
     "gulp-compile-handlebars": "^0.6.1",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.2.2",
@@ -30,6 +30,6 @@
     "gulp-webserver": "^0.9.1",
     "merge-stream": "^1.0.1",
     "ncp": "^2.0.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.2"
   }
 }
